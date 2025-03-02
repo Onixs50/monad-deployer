@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monad Deployer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script src="contracts.js" defer></script>
+    <script src="script.js" defer></script>
+    <link rel="icon" type="image/svg+xml" href="https://cdn.prod.website-files.com/667c57e6f9254a4b6d914440/67b135627be8437b3cda15ae_Monad%20Logomark.svg">
+</head>
+<body>
+
+<header>
+    <img src="https://cdn.prod.website-files.com/667c57e6f9254a4b6d914440/67b135627be8437b3cda15ae_Monad%20Logomark.svg" 
+         alt="Monad Logo" width="50" style="vertical-align: middle; margin-right: 10px;">
+    <h1 style="display: inline;"> Welcome to Contract Deployment & Interaction Tools</h1>
+    <p>🔗 Easily deploy and interact with smart contracts on Monad Testnet!</p>
+    <button id="connectWallet">Connect Wallet</button>
+    <button id="deleteData" onclick="confirmDelete()">Delete Data</button>
+    <div id="walletInfo">
+        <p id="walletAddress"></p>
+        <p id="balance"></p>
+        <p id="transactionCount"></p>
+    </div>
+</header>
+
+<main>
+    <!-- 🏗️ Contract Manager Deployment -->
+    <section id="contractManager">
+        <h2>🚀 Deploy All Contracts</h2>
+        <p>Deploy a single contract to initialize all others.</p>
+        <button id="deployContractManagerBtn">Deploy ContractManager</button>
+        <div id="contractAddresses">
+            <p id="ContractManagerAddress"></p>
+            <p id="TokenAddress"></p>
+            <p id="NFTAddress"></p>
+            <p id="VotingSystemAddress"></p>
+            <p id="BatchTransactionAddress"></p>
+        </div>
+    </section>
+
+    <!-- 🎮 Games Section -->
+    <section id="games">
+        <h2>🎮 Deploy & Play Games</h2>
+
+        <div class="game">
+            <h3>🐶 Virtual Pet</h3>
+            <p>Take care of your pet. If you don't feed it for 24 hours, it will be sad! 😢</p>
+            <div class="contract-status">
+                <button id="deployVirtualPetBtn">Deploy Contract</button>
+                <p id="VirtualPetAddress"></p>
+            </div>
+            <div class="game-interaction">
+                <input type="text" id="petName" placeholder="Enter pet name">
+                <button id="createPetBtn">Create Pet</button>
+                <button id="feedPetBtn">Feed Pet</button>
+                <button id="checkPetBtn">Check Status</button>
+                <div id="petStatus"></div>
+            </div>
+        </div>
+
+        <div class="game">
+            <h3>✂️ Rock Paper Scissors</h3>
+            <p>Play against the blockchain! 🤖</p>
+            <div class="contract-status">
+                <button id="deployRPSBtn">Deploy Contract</button>
+                <p id="RockPaperScissorsAddress"></p>
+            </div>
+            <div class="game-interaction">
+                <button id="playRockBtn">🪨 Rock</button>
+                <button id="playPaperBtn">📜 Paper</button>
+                <button id="playScissorsBtn">✂️ Scissors</button>
+                <div id="rpsResult"></div>
+            </div>
+        </div>
+
+        <div class="game">
+            <h3>💰 OMON Staking</h3>
+            <p>Stake MON and earn OMON rewards.</p>
+            <div class="contract-status">
+                <button id="deployStakingBtn">Deploy Contract</button>
+                <p id="OmonStakingAddress"></p>
+            </div>
+            <div class="game-interaction">
+                <button id="stakeBtn">Stake 0.01 MON</button>
+                <button id="unstakeBtn">Unstake 0.01 MON</button>
+                <div id="stakingStatus"></div>
+            </div>
+        </div>
+
+        <div class="game">
+            <h3>🎰 Betting Game</h3>
+            <p>Pick a number (1-10) and test your luck!</p>
+            <div class="contract-status">
+                <button id="deployBettingBtn">Deploy Contract</button>
+                <p id="BettingGameAddress"></p>
+            </div>
+            <div class="game-interaction">
+                <input type="number" id="betNumber" min="1" max="10" placeholder="Pick a number">
+                <button id="placeBetBtn">Bet</button>
+                <div id="betResult"></div>
+            </div>
+        </div>
+
+        <div class="game">
+            <h3>💬 Random GM</h3>
+            <p>Get a random greeting message!</p>
+            <div class="contract-status">
+                <button id="deployRandomGMBtn">Deploy Contract</button>
+                <p id="RandomGMAddress"></p>
+            </div>
+            <div class="game-interaction">
+                <button id="getMessageBtn">Get Message</button>
+                <div id="randomMessage"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🏦 Token, NFT, Voting & Batch Transactions -->
+    <section id="blockchainTools">
+        <h2>🏦 Blockchain Tools</h2>
+
+        <div class="tool">
+            <h3>🪙 Token</h3>
+            <p>Mint and transfer your own token.</p>
+            <div class="contract-status">
+                <p id="TokenAddressDisplay"></p>
+            </div>
+            <div class="tool-interaction">
+                <input type="text" id="tokenName" placeholder="Token Name">
+                <input type="number" id="tokenAmount" placeholder="Amount">
+                <button id="mintTokenBtn">Mint</button>
+                <input type="text" id="transferTo" placeholder="Recipient Address">
+                <button id="transferTokenBtn">Transfer</button>
+                <div id="tokenStatus"></div>
+            </div>
+        </div>
+
+        <div class="tool">
+            <h3>🎨 NFT</h3>
+            <p>Mint a unique NFT.</p>
+            <div class="contract-status">
+                <p id="NFTAddressDisplay"></p>
+            </div>
+            <div class="tool-interaction">
+                <input type="text" id="nftName" placeholder="NFT Name">
+                <button id="mintNFTBtn">Mint NFT</button>
+                <div id="nftStatus"></div>
+            </div>
+        </div>
+
+        <div class="tool">
+            <h3>🗳️ Voting System 🤣</h3>
+            <p>Does Monad give an airdrop?</p>
+            <div class="contract-status">
+                <p id="VotingSystemAddressDisplay"></p>
+            </div>
+            <div class="tool-interaction">
+                <button id="voteYesBtn">✅ Yes</button>
+                <button id="voteNoBtn">❌ No</button>
+                <div id="votingStatus"></div>
+            </div>
+        </div>
+
+        <div class="tool">
+            <h3>📩 Batch Transactions</h3>
+            <p>Send tokens to multiple wallets at once.</p>
+            <div class="contract-status">
+                <p id="BatchTransactionAddressDisplay"></p>
+            </div>
+            <div class="tool-interaction">
+                <textarea id="batchRecipients" placeholder="Enter recipient addresses separated by commas"></textarea>
+                <input type="number" id="batchAmount" placeholder="Amount per recipient">
+                <button id="sendBatchBtn">Send Batch</button>
+                <div id="batchStatus"></div>
+            </div>
+        </div>
+
+        <div class="tool">
+            <h3>🔑 Wallet Generator</h3>
+            <p>Generate multiple wallet addresses.</p>
+            <div class="tool-interaction">
+                <input type="number" id="walletCount" placeholder="Number of wallets">
+                <button id="generateWalletsBtn">Generate</button>
+                <div id="generatedWallets"></div>
+                <button id="useGeneratedWalletsBtn">Use in Batch Transaction</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 Onixia - Built on Monad Testnet</p>
+    <a href="https://twitter.com/sadeghss50" target="_blank">
+        <img src="twitter-icon.svg" alt="Twitter" width="25">
+    </a>
+    <a href="https://github.com/onixs50" target="_blank">
+        <img src="https://img.icons8.com/?size=100&id=12599&format=png&color=000000" alt="GitHub" width="25">
+    </a>
+</footer>
+
+</body>
+</html>
